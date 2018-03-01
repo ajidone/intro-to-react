@@ -20,8 +20,41 @@
          }
         }
 
+        class ToDo extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {
+              itemCount: 0
+            }
+          }
+
+          render() {
+            const items = this.props.toDoItems;
+            const printList = items.map((item) => <li>{item}</li>);
+            this.setState({
+              itemCount: items.length
+            });
+            
+            return (
+             <div>
+               <h2>To Do List</h2>
+               <em>{this.props.date.toLocaleDateString()}</em>
+               <p># of Items: {this.state.itemCount} </p>
+               <ol>
+                  {printList}
+               </ol>
+             </div>
+           );
+         }
+        }
+
+        const data = {
+          date: new Date(),
+          listItems: ['Work', 'School', 'Laundry']
+        };
+
         ReactDOM.render(
-         <Greeting name='Adam'/>, document.getElementById('app')
+         [<Greeting />, <ToDo date={data.date} toDoItems={data.listItems}/>], document.getElementById('app')
         );
      </script>
   </body>
